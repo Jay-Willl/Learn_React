@@ -93,13 +93,15 @@ Do not set state inside `useEffect`, `useState` 导致了重渲染, `useEffect` 
 
 1. 在默认情况下, `useEffect` 在每次render之后都会被调用, 这有两个危害: 慢/造成错误
 2. 通过一个表示依赖的数组来避免不必要的重渲染
-这个数组告诉 React, 如果数组中的内容保持不变, 就不会触发 `Effect`\
-数组中的各个元素是 ‘与’ 的关系, 只有所有 dependencies 保持一致, 才不会触发 `Effect`
+   这个数组告诉 React, 如果数组中的内容保持不变, 就不会触发 Effect\
+   数组中的各个元素是 ‘与’ 的关系, 只有所有 dependencies 保持一致, 才不会触发 Effect
+
 ```js
 useEffect(() => {
-   // ...
+    // ...
 }, [isPlaying]);
 ```
+
 #### y. 为什么依赖数组中不需要添加 Ref ?
 
 Cause React guarantees Ref object to have the stable identity.
@@ -107,18 +109,23 @@ Cause React guarantees Ref object to have the stable identity.
 #### z. 不同的 useEffect 写法
 
 1. 没有依赖数组
+
 ```js
 useEffect(() => {
     // This runs after every render
 });
 ```
+
 2. 仅有依赖数组
+
 ```js
 useEffect(() => {
     // This runs only on mount (when the component appears)
 }, []);
 ```
+
 3. 正常情况
+
 ```js
 useEffect(() => {
     // This runs on mount *and also* if either a or b have changed since the last render
@@ -130,15 +137,18 @@ useEffect(() => {
 考虑一个 Chatroom 的例子
 
 1. 在这个代码下, 会显示 connect 两次
+
 ```js
 useEffect(() => {
     const connection = createConnnection();
     connection.connect();
 }, []);
 ```
+
 React 会立刻 remount 当组件第一次被 mount
 
 2. 为了解决这个问题, 需要一个 cleanup 函数
+
 ```js
 useEffect(() => {
     const connection = createConnection();
@@ -148,6 +158,11 @@ useEffect(() => {
     };
 });
 ```
+
+3. 这是一个 development mode 的例子, connect-disconnect-connect 帮助在开发中提前检测到错误, 在 production mode 中,
+   只会连接一次(即, 不会remount)
+4. connect-disconnect-connect 行为是 strict mode 的特性
+
 
 
 

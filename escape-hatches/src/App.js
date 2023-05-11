@@ -3,6 +3,7 @@ import Chat from "./_1_referencing_values_with_refs_/exercise_1";
 import Dashboard from "./_1_referencing_values_with_refs_/exercise_2";
 import InfLoop from "./_3_synchronizing_with_effects/example_1";
 import EffectExample from "./_3_synchronizing_with_effects/example_2";
+import Cat from "./_2_manipulating_the_DOM_with_refs_/example_1";
 
 function App() {
     return (
@@ -15,8 +16,11 @@ function App() {
             <hr/>
             <Dashboard/>
             <hr/>
+            <h1>Example Section 2</h1>
+            <Cat/>
+            <hr/>
             <h1>Example Section 3</h1>
-            <InfLoop />
+            {/*<InfLoop />*/}
             <EffectExample />
         </div>
     );
